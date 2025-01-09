@@ -1,2 +1,5 @@
 Cargo.lock
 lib/misc-verilog-cores/
+target/
+*.o
+*.vpi
