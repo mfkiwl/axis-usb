@@ -1,5 +1,8 @@
 Cargo.lock
 lib/misc-verilog-cores/
+lib/axi-ddr3-lite/
 target/
 *.o
 *.vpi
+*.out
+*.vcd

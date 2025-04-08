@@ -5,10 +5,12 @@ sim:	build
 #
 #  Icarus Verilog settings
 ##
+LIBDIR	:= ../lib/misc-verilog-cores
+
 IVC	?= iverilog
 OPT	:= -g2005-sv -D__icarus -Wall
 
-LIB	:= $(wildcard ../arch/*.v ../fifo/*.v ../axis/*.v ../misc/*.v)
+LIB	:= $(wildcard $(LIBDIR)/arch/*.v $(LIBDIR)/fifo/*.v $(LIBDIR)/axis/*.v $(LIBDIR)/misc/*.v)
 DEP	:= $(filter-out %_tb.v, $(LIB))
 SRC	:= $(wildcard *.v)
 RTL	:= $(filter-out %_tb.v, $(SRC)) $(DEP)

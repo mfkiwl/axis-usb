@@ -2,8 +2,6 @@
 all:	vpi
 	@make -C bench all
 	@make -C rtl all
-	@make -C rtl/fifo all
-	@make -C synth all
 
 vpi:
 	@make -C vpi all
@@ -19,7 +17,6 @@ usbsim:	vpi
 
 simall:	sim vpi
 	@make -C rtl sim
-	@make -C rtl/fifo sim
 	@make -C build sim
 
 

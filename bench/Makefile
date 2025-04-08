@@ -4,29 +4,31 @@ all:	sim
 #
 #  Icarus Verilog settings
 ##
-IVC	?= iverilog
-OPT	:= -g2005-sv -D__icarus -Wall -I../rtl/axis/ -I../rtl/usb/ -I../rtl/ddr3/
-
 RTLDIR	:= ../rtl
+LIBDIR	:= ../lib/misc-verilog-cores
+MEMDIR	:= ../lib/axi-ddr3-lite
 
-USB_V	:= $(wildcard $(RTLDIR)/usb/*.v)
+IVC	?= iverilog
+OPT	:= -g2005-sv -D__icarus -Wall -I$(LIBDIR)/axis/ -I$(LIBDIR)/usb/ -I$(MEMDIR)/ -I$(MEMDIR)/sim/
+
+USB_V	:= $(wildcard $(LIBDIR)/usb/*.v)
 USB	:= $(filter-out %_tb.v, $(USB_V)) $(wildcard usb/*.v)
 
-UART	:= $(wildcard $(RTLDIR)/uart/*.v)
+UART	:= $(wildcard $(LIBDIR)/uart/*.v)
 
-DDR3_V	:= $(wildcard $(RTLDIR)/ddr3/*.v)
+DDR3_V	:= $(wildcard $(MEMDIR)/*.v $(MEMDIR)/extra/*.v)
 DDR3	:= $(filter-out %_tb.v, $(DDR3_V))
 
-MISC_V	:= $(wildcard $(RTLDIR)/misc/*.v $(RTLDIR)/axis/*.v)
+MISC_V	:= $(wildcard $(LIBDIR)/misc/*.v $(LIBDIR)/axis/*.v)
 MISC	:= $(filter-out %_tb.v, $(MISC_V))
-FIFO	:= $(wildcard $(RTLDIR)/fifo/*.v)
-ARCH	:= $(wildcard $(RTLDIR)/arch/*.v) arch/gw2a_prim_sim.v
+FIFO	:= $(wildcard $(LIBDIR)/fifo/*.v)
+ARCH	:= $(wildcard $(LIBDIR)/arch/*.v) arch/gw2a_prim_sim.v
 
 SYNTH	:= ../synth/gowin-ddr3-test
 EXTRA_V	:= $(wildcard $(SYNTH)/*.v)
 EXTRA	:= $(filter-out %_tb.v, $(EXTRA_V))
 
-SIMSRC	:= $(wildcard *.v)
+SIMSRC	:= $(wildcard *.v $(MEMDIR)/sim/*.v)
 SRC	:= $(filter-out %_tb.v, $(SIMSRC))
 
 LIB	:= $(MISC) $(FIFO) $(ARCH) $(USB) $(DDR3) $(UART) $(EXTRA) $(SRC)
